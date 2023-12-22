@@ -1130,6 +1130,13 @@ type SimpleVolView struct {
 	Forbidden      bool
 	EnableAuditLog bool
 	DeleteExecTime time.Time
+
+	RemoteCacheBoostEnable   bool
+	RemoteCacheBoostPath     string
+	RemoteCacheAutoPrepare   bool
+	RemoteCacheTTL           int64
+	RemoteCacheReadTimeoutMs int64
+	EnableRemoveDupReq       bool // TODO: using it in metanode
 }
 
 type NodeSetInfo struct {

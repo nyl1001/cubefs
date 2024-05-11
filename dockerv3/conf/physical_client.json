@@ -1,0 +1,8 @@
+{
+  "masterAddr": "172.16.0.178:17010",
+  "mountPoint": "/cfs/mnt",
+  "volName": "ltptest",
+  "owner": "ltptest",
+  "logDir": "/cfs/data/physical_client/",
+  "logLevel": "debug"
+}

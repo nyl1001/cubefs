@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  cfs1:
+    container_name: cfs1
+    image: cfs1
+    restart: always
+    volumes:
+      - ./authnode1.json:/app/authnode1.json
+      - ./cfs-server:/app/cfs-server
+    network_mode: host
+  cfs2:
+    container_name: cfs2
+    image: cfs2
+    restart: always
+    volumes:
+      - ./authnode2.json:/app/authnode2.json
+      - ./cfs-server:/app/cfs-server
+    network_mode: host
+
+  cfs3:
+    container_name: cfs3
+    image: cfs3
+    restart: always
+    volumes:
+      - ./authnode3.json:/app/authnode3.json
+      - ./cfs-server:/app/cfs-server
+    network_mode: host

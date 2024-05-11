@@ -1,0 +1,351 @@
+version: '2.1'
+
+services:
+  monitor:
+    image: ${IMAGE}
+    depends_on:
+      - consul
+      - prometheus
+      - grafana
+    network_mode: host
+
+  servers:
+    image: ${IMAGE}
+    depends_on:
+      - master1
+      - metanode1
+      - metanode2
+      - metanode3
+      - metanode4
+      - datanode1
+      - datanode2
+      - datanode3
+      - datanode4
+      - objectnode1
+      - objectnode2
+      - objectnode3
+      - console1
+      - nginx
+    network_mode: host
+
+  master1:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/master1/data:/cfs/data
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/master1/log:/cfs/log
+      - ./conf/master1.json:/cfs/conf/master.json
+      - ./script/start_master.sh:/cfs/script/start.sh
+    command: /bin/sh /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  metanode1:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/metanode1/data:/cfs/data
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/metanode1/log:/cfs/log
+      - ./conf/metanode1.json:/cfs/conf/metanode.json
+      - ./script/start_meta.sh:/cfs/script/start.sh
+    command: /bin/bash /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  metanode2:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/metanode2/data:/cfs/data
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/metanode2/log:/cfs/log
+      - ./conf/metanode2.json:/cfs/conf/metanode.json
+      - ./script/start_meta.sh:/cfs/script/start.sh
+    command: /bin/bash /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  metanode3:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/metanode3/data:/cfs/data
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/metanode3/log:/cfs/log
+      - ./conf/metanode3.json:/cfs/conf/metanode.json
+      - ./script/start_meta.sh:/cfs/script/start.sh
+    command: /bin/bash /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  metanode4:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/metanode4/data:/cfs/data
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/metanode4/log:/cfs/log
+      - ./conf/metanode4.json:/cfs/conf/metanode.json
+      - ./script/start_meta.sh:/cfs/script/start.sh
+    command: /bin/bash /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  datanode1:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/datanode1/disk:/cfs/disk
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/datanode1/log:/cfs/log
+      - ./conf/datanode1.json:/cfs/conf/datanode.json
+      - ./script/start_datanode.sh:/cfs/script/start.sh
+    command: /bin/bash /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  datanode2:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/datanode2/disk:/cfs/disk
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/datanode2/log:/cfs/log
+      - ./conf/datanode2.json:/cfs/conf/datanode.json
+      - ./script/start_datanode.sh:/cfs/script/start.sh
+    command: /bin/sh /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  datanode3:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/datanode3/disk:/cfs/disk
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/datanode3/log:/cfs/log
+      - ./conf/datanode3.json:/cfs/conf/datanode.json
+      - ./script/start_datanode.sh:/cfs/script/start.sh
+    command: /bin/sh /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  datanode4:
+    image: ${IMAGE}
+    volumes:
+      - ${DiskPath:-./docker_data}/datanode4/disk:/cfs/disk
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/datanode4/log:/cfs/log
+      - ./conf/datanode4.json:/cfs/conf/datanode.json
+      - ./script/start_datanode.sh:/cfs/script/start.sh
+    command: /bin/sh /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  objectnode1:
+    image: ${IMAGE}
+    volumes:
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/objectnode1/log:/cfs/log
+      - ./conf/objectnode1.json:/cfs/conf/objectnode.json
+      - ./script/start_objectnode.sh:/cfs/script/start.sh
+    command: /bin/sh /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    network_mode: host
+
+  objectnode2:
+    image: ${IMAGE}
+    volumes:
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/objectnode2/log:/cfs/log
+      - ./conf/objectnode2.json:/cfs/conf/objectnode.json
+      - ./script/start_objectnode.sh:/cfs/script/start.sh
+    command: /bin/sh /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    network_mode: host
+
+  objectnode3:
+    image: ${IMAGE}
+    volumes:
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/objectnode3/log:/cfs/log
+      - ./conf/objectnode3.json:/cfs/conf/objectnode.json
+      - ./script/start_objectnode.sh:/cfs/script/start.sh
+    command: /bin/sh /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    network_mode: host
+
+  console1:
+    image: ${IMAGE}
+    volumes:
+      - ./bin:/cfs/bin:ro
+      - ${DiskPath:-./docker_data}/console/log:/cfs/log
+      - ./conf/console.json:/cfs/conf/console.json
+      - ./script/start_console.sh:/cfs/script/start.sh
+    command: /bin/sh /cfs/script/start.sh
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  client:
+    image: ${IMAGE}
+    volumes:
+      - ./bin:/cfs/bin:ro
+      - ./conf/hosts:/etc/hosts:ro
+      - ./conf/client.json:/cfs/conf/client.json
+      - ${DiskPath:-./docker_data}/client/log:/cfs/log
+      - ./script/run_test.sh:/cfs/script/start.sh
+      - ./script/start_client.sh:/cfs/script/start_client.sh
+      - ./ltp/runtest/fs:/opt/ltp/runtest/fs
+      - ./s3tests:/opt/s3tests:ro
+    privileged: true
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    cap_add:
+      - SYS_ADMIN
+    command: /bin/bash /cfs/script/start.sh
+    network_mode: host
+
+  consul:
+    image: consul:1.5
+    volumes:
+      - ./monitor:/monitor
+    privileged: true
+    network_mode: host
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./monitor/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    privileged: true
+    network_mode: host
+
+  grafana:
+    image: grafana/grafana:6.4.4
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=123456
+    volumes:
+      - ./monitor/grafana/grafana.ini:/etc/grafana/grafna.ini
+      - ./monitor/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitor/grafana/init.sh:/grafana/init.sh
+    privileged: true
+    #command: /bin/bash
+    network_mode: host
+
+  nginx:
+    image: nginx:1.17.8
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf:ro
+    command: /bin/bash -c "nginx -g 'daemon off;'"
+    restart: on-failure
+    privileged: true
+    network_mode: host
+
+  prepare:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+    command:
+      - bash
+      - "-c"
+      - >-
+        set -e;
+        tar -zxf /go/rocksdb_libs.tar.gz -C ${CFSROOT}/build
+
+  format:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+    command:
+      /bin/bash ${CFSROOT}/dockerv3/script/run_format.sh
+
+  build:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+      - ./script/build.sh:/cfs/script/build.sh
+    command:
+      /bin/bash /cfs/script/build.sh
+
+  unit_test:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+    command:
+      - bash
+      - "-c"
+      - >-
+        set -e;
+        mkdir -p ${CFSROOT}/dockerv3/bin &&
+        cd ${CFSROOT} && make testcover
+
+  build_libsdkpre:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+    command:
+      - bash
+      - "-c"
+      - >-
+        set -e;
+        cd ${CFSROOT} && make libsdkpre
+
+  goreleaser:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+    command:
+      - bash
+      - "-c"
+      - >-
+        set -e;
+        cd ${CFSROOT} &&
+        /go/bin/goreleaser release --skip-publish --clean
+
+  bs_gofumpt:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+    command:
+      - bash
+      - "-c"
+      - >-
+        set -e;
+        cd ${CFSROOT}/blobstore && go vet -trimpath ./... &&
+        /go/bin/gofumpt -l -w . && git diff --exit-code
+
+  bs_golint:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+    command:
+      - bash
+      - "-c"
+      - >-
+        set -e;
+        cd ${CFSROOT}/blobstore &&
+        /go/bin/golangci-lint run --timeout 10m --issues-exit-code=1 -D errcheck -E bodyclose ./...
+
+  gosec:
+    image: ${IMAGE}
+    volumes:
+      - ../:${CFSROOT}
+    command:
+      - bash
+      - "-c"
+      - >-
+        set -e;
+        cd ${CFSROOT} &&
+        /go/bin/gosec -severity=high -exclude-dir=depends -exclude-dir=vendor -exclude-dir=autofs -exclude=G404 ./...

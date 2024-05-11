@@ -1,0 +1,18 @@
+{
+  "role": "metanode",
+  "listen": "17211",
+  "prof": "17221",
+  "raftHeartbeatPort": "17231",
+  "raftReplicaPort": "17241",
+  "consulAddr": "http://172.16.0.178:8500",
+  "exporterPort": 9521,
+  "logLevel": "debug",
+  "logDir": "/cfs/log",
+  "warnLogDir": "/cfs/log",
+  "totalMem": "536870912",
+  "metadataDir": "/cfs/data/meta",
+  "raftDir": "/cfs/data/raft",
+  "masterAddr": [
+    "172.16.0.178:17010"
+  ]
+}

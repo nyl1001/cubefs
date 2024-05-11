@@ -1,0 +1,19 @@
+{
+  "clusterName": "cubefs01",
+  "id": "2",
+  "role": "master",
+  "ip": "172.16.0.178",
+  "listen": "17011",
+  "prof": "17021",
+  "peers": "1:172.16.0.178:17010,2:172.16.0.178:17011,3:172.16.0.178:17012",
+  "retainLogs": "20000",
+  "consulAddr": "http://172.16.0.178:8500",
+  "exporterPort": 9501,
+  "heartbeatPort": 5811,
+  "replicaPort": 5812,
+  "logLevel": "debug",
+  "logDir": "/cfs/log",
+  "walDir": "/cfs/data/wal",
+  "storeDir": "/cfs/data/store",
+  "metaNodeReservedMem": "67108864"
+}

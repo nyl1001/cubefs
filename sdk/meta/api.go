@@ -343,7 +343,9 @@ func (mw *MetaWrapper) InodeGet_ll(inode uint64) (*proto.InodeInfo, error) {
 		return nil, syscall.ENOENT
 	}
 
+	syslog.Printf("before mw.iget, mp: %v, inode: %v \n", mp, inode)
 	status, info, err := mw.iget(mp, inode)
+	syslog.Printf("after mw.iget, mp: %v, inode: %v, status: %v, info: %v, err: %v\n", mp, inode, status, info, err)
 	if err != nil || status != statusOK {
 		if status == statusNoent {
 			// For NOENT error, pull the latest mp and give it another try,

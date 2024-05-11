@@ -1,0 +1,17 @@
+{
+ "role": "authnode",
+ "ip": "172.16.0.178",
+ "port": "8082",
+ "prof":"10090",
+ "id":"3",
+ "peers": "172.16.0.178:8080,172.16.0.178:8081,172.16.0.178:8082",
+ "retainLogs":"2",
+ "logDir": "/export/Logs/authnode3",
+ "logLevel":"info",
+ "walDir":"/export/Data/authnode3/raft",
+ "storeDir":"/export/Data/authnode3/rocksdbstore",
+ "exporterPort": 9512,
+ "consulAddr": "http://consul.prometheus-cfs.local",
+ "clusterName": "test",
+ "enableHTTPS":false
+}

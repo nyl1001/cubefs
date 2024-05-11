@@ -17,7 +17,6 @@ package master
 import (
 	"errors"
 	"fmt"
-	"github.com/cubefs/cubefs/util/log"
 	"math/rand"
 	"net"
 	"regexp"
@@ -25,6 +24,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/cubefs/cubefs/util/log"
 )
 
 var domainRegexp = regexp.MustCompile(`^(?i)[a-z0-9-]+(\.[a-z0-9-]+)+\.?$`)
@@ -74,7 +75,7 @@ func (ic *IpCache) GetAllIps() (ips []string, err error) {
 type NameResolver struct {
 	domains []string
 	ips     []string
-	port    uint64
+	ports   []uint64
 	ic      *IpCache
 }
 
@@ -89,6 +90,7 @@ func NewNameResolver(addrPorts []string) (ns *NameResolver, err error) {
 	}
 	var domains []string
 	var ips []string
+	var ports []uint64
 
 	port := uint64(0)
 	for _, ap := range addrPorts {
@@ -119,10 +121,10 @@ func NewNameResolver(addrPorts []string) (ns *NameResolver, err error) {
 		if port == 0 {
 			port = p
 		} else if port != p {
-			log.LogErrorf("NameResolver: ports are not the same")
-			return nil, fmt.Errorf("ports are not the same")
+			port = p
+			//log.LogErrorf("NameResolver: ports are not the same")
+			//return nil, fmt.Errorf("ports are not the same")
 		}
-
 		addr := net.ParseIP(arr[0])
 		if addr == nil {
 			if IsValidDomain(arr[0]) {
@@ -133,6 +135,7 @@ func NewNameResolver(addrPorts []string) (ns *NameResolver, err error) {
 			}
 		} else {
 			ips = append(ips, addr.String())
+			ports = append(ports, port)
 		}
 	}
 	ic := &IpCache{}
@@ -140,7 +143,7 @@ func NewNameResolver(addrPorts []string) (ns *NameResolver, err error) {
 	ns = &NameResolver{
 		domains: domains,
 		ips:     ips,
-		port:    port,
+		ports:   ports,
 		ic:      ic,
 	}
 	log.LogDebugf("NameResolver: add ip[%v], domain[%v], port[%v]", ips, domains, port)
@@ -161,8 +164,8 @@ func (ns *NameResolver) GetAllAddresses() (addrs []string, err error) {
 		return nil, err
 	}
 
-	for _, ip := range ips {
-		addr := fmt.Sprintf("%s:%d", ip, ns.port)
+	for idx, ip := range ips {
+		addr := fmt.Sprintf("%s:%d", ip, ns.ports[idx])
 		addrs = append(addrs, addr)
 	}
 	return addrs, nil

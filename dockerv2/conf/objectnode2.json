@@ -1,0 +1,37 @@
+{
+  "role": "objectnode",
+  "logDir": "/cfs/log/",
+  "logLevel": "debug",
+  "listen": "81",
+  "consulAddr": "http://172.16.0.178:8500",
+  "exporterPort": 9561,
+  "masterAddr": [
+    "172.16.0.178:17010",
+    "172.16.0.178:17011",
+    "172.16.0.178:17012"
+  ],
+  "enableHTTPS": "false",
+  "domains": [
+    "object.cube.io"
+  ],
+  "signatureIgnoredActions": [
+    "action:oss:GetObjectXAttr",
+    "action:oss:PutObjectXAttr",
+    "action:oss:DeleteObjectXAttr",
+    "action:oss:ListObjectXAttrs",
+    "action:oss:OptionsObject"
+  ],
+  "disabledActions": [
+    "action:oss:CreateBucket",
+    "action:oss:DeleteBucket"
+  ],
+  "strict": true,
+  "enableObjMetaCache" : true,
+  "cacheRefreshInterval": 600,
+  "maxDentryCacheNum" : 10000000,
+  "maxInodeAttrCacheNum": 10000000,
+  "enableBcache": "false",
+  "ebsWriteThreads": 4,
+  "ebsReadThreads": 4
+
+}

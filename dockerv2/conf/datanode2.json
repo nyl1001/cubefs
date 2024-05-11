@@ -1,0 +1,28 @@
+{
+  "role": "datanode",
+  "listen": "17311",
+  "prof": "17321",
+  "raftHeartbeat": "17331",
+  "raftReplica": "17341",
+  "raftDir": "/cfs/log",
+  "consulAddr": "http://172.16.0.178:8500",
+  "exporterPort": 9531,
+  "cell": "cell-01",
+  "logDir": "/cfs/log",
+  "logLevel": "debug",
+  "disks": [
+    "/cfs/disk:6442450944"
+  ],
+
+  "diskIopsReadLimit" : "20000",
+  "diskIopsWriteLimit" : "5000",
+  "diskFlowReadLimit" : "1024000000",
+  "diskFlowWriteLimit": "524288000",
+
+  "masterAddr": [
+    "172.16.0.178:17010",
+    "172.16.0.178:17011",
+    "172.16.0.178:17012"
+  ],
+  "enableSmuxConnPool": true
+}

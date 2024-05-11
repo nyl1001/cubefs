@@ -696,7 +696,7 @@ func mount(opt *proto.MountOptions) (fsConn *fuse.Conn, super *cfs.Super, err er
 	if opt.EnableUnixPermission {
 		options = append(options, fuse.DefaultPermissions())
 	}
-
+	syslog.Printf("before fuse.Mount: %v, opt.NeedRestoreFuse: %v, options: %v \n", opt.MountPoint, opt.NeedRestoreFuse, options)
 	fsConn, err = fuse.Mount(opt.MountPoint, opt.NeedRestoreFuse, options...)
 	return
 }

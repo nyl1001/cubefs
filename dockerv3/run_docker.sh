@@ -122,9 +122,13 @@ run_ltptest() {
 
 run() {
     build
-    start_monitor
     start_servers
     start_client
+}
+
+run_master() {
+    build
+    ${compose} up -d master1
 }
 
 cmd="help"
@@ -176,6 +180,9 @@ for opt in ${ARGS[*]} ; do
             ;;
         --gosec)
             cmd=run_gosec
+            ;;
+        --master)
+            cmd=run_master
             ;;
         -clean|--clean)
             cmd=clean
@@ -233,6 +240,7 @@ case "-$cmd" in
     -run_bsgofumpt) run_bsgofumpt ;;
     -run_bsgolint) run_bsgolint ;;
     -run_gosec) run_gosec ;;
+    -run_master) run_master ;;
     -clean) clean ;;
     *) help ;;
 esac

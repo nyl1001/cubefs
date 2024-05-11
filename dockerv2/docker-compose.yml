@@ -1,12 +1,5 @@
 version: '2.1'
 
-networks:
-  extnetwork:
-    ipam:
-      config:
-        - subnet: 192.168.0.0/24
-          gateway: 192.168.0.1
-
 services:
   monitor:
     image: ${IMAGE}
@@ -54,18 +47,10 @@ services:
     command: /bin/sh /cfs/script/start.sh
     restart: on-failure
     privileged: true
-    networks:
-      extnetwork:
-        ipv4_address: 192.168.0.11
+    network_mode: host
 
   master2:
     image: ${IMAGE}
-    ports:
-      - "5811:5901"
-      - "5812:5902"
-      - "17011:17010"
-      - "17021:17020"
-      - "9501:9500"
     volumes:
       - ${DiskPath:-./docker_data}/master2/data:/cfs/data
       - ./bin:/cfs/bin:ro
@@ -75,17 +60,9 @@ services:
     command: /bin/sh /cfs/script/start.sh
     restart: on-failure
     privileged: true
-    networks:
-      extnetwork:
-        ipv4_address: 192.168.0.12
+    network_mode: host
   master3:
     image: ${IMAGE}
-    ports:
-      - "5821:5901"
-      - "5822:5902"
-      - "17012:17010"
-      - "17022:17020"
-      - "9502:9500"
     volumes:
       - ${DiskPath:-./docker_data}/master3/data:/cfs/data
       - ./bin:/cfs/bin:ro
@@ -95,9 +72,7 @@ services:
     command: /bin/sh /cfs/script/start.sh
     restart: on-failure
     privileged: true
-    networks:
-      extnetwork:
-        ipv4_address: 192.168.0.13
+    network_mode: host
 
 
   metanode1:

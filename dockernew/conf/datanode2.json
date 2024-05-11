@@ -1,5 +1,6 @@
 {
   "role": "datanode",
+  "ip": "172.16.0.178",
   "listen": "17311",
   "prof": "17321",
   "raftHeartbeat": "17331",

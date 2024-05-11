@@ -2,6 +2,7 @@
   "role": "objectnode",
   "logDir": "/cfs/log/",
   "logLevel": "debug",
+  "ip": "172.16.0.178",
   "listen": "80",
   "consulAddr": "http://172.16.0.178:8500",
   "exporterPort": 9560,

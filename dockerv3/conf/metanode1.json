@@ -1,5 +1,6 @@
 {
   "role": "metanode",
+  "ip": "172.16.0.178",
   "listen": "17210",
   "prof": "17220",
   "raftHeartbeatPort": "17230",

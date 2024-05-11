@@ -4,7 +4,7 @@
   "listen": "17312",
   "prof": "17322",
   "raftHeartbeat": "17332",
-  "raftReplica": "17342",
+  "raftReplica": "17346",
   "raftDir": "/cfs/log",
   "consulAddr": "http://172.16.0.178:8500",
   "exporterPort": 9532,

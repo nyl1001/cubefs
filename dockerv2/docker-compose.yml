@@ -303,7 +303,7 @@ services:
     volumes:
       - ../:${CFSROOT}
     command:
-      /bin/bash ${CFSROOT}/docker/script/run_format.sh
+      /bin/bash ${CFSROOT}/dockerv2/script/run_format.sh
 
   build:
     image: ${IMAGE}
@@ -322,7 +322,7 @@ services:
       - "-c"
       - >-
         set -e;
-        mkdir -p ${CFSROOT}/docker/bin &&
+        mkdir -p ${CFSROOT}/dockerv2/bin &&
         cd ${CFSROOT} && make testcover
 
   build_libsdkpre:

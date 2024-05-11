@@ -32,12 +32,6 @@ services:
 
   master1:
     image: ${IMAGE}
-    ports:
-      - "5901:5901"
-      - "5902:5902"
-      - "17010:17010"
-      - "17020:17020"
-      - "9500:9500"
     volumes:
       - ${DiskPath:-./docker_data}/master1/data:/cfs/data
       - ./bin:/cfs/bin:ro
